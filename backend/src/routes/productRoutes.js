@@ -14,15 +14,4 @@ router.get('/', productController.getAllProducts);
 router.put('/:id', authMiddleware, upload.single('image'), validate(updateProductSchema), productController.updateProduct);
 router.delete('/:id', authMiddleware, productController.deleteProduct);
 
-router.post('/test-upload', upload.single('image'), (req, res) => {
-    if (!req.file) {
-      return res.status(400).json({ message: 'No file uploaded' });
-    }
-    res.json({
-      message: 'File received',
-      file: req.file,
-      body: req.body,
-    });
-  });
-
 module.exports = router;
