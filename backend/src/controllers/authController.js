@@ -17,7 +17,12 @@ const registerUser = asyncHandler(async (req, res) => {
   // Check if user already exists
   const userExists = await User.findOne({ email });
   if (userExists) {
-    return res.status(400).json({ message: 'User already exists' });
+    return res.status(400).json({
+      status: 'fail', 
+      data: {
+        message: "User already exists"
+      } 
+    });
   }
 
   // Create new user
@@ -25,14 +30,19 @@ const registerUser = asyncHandler(async (req, res) => {
 
   if (user) {
     res.status(201).json({
-      _id: user._id,
-      firstName: user.firstName,
-      lastName: user.lastName,
-      email: user.email,
-      token: generateToken(user._id),
+      status: 'success', 
+      data: {
+        message: "User created successfully",
+        token: generateToken(user._id),
+      }
     });
   } else {
-    res.status(400).json({ message: 'Invalid user data' });
+    return res.status(400).json({
+      status: 'fail', 
+      data: {
+        message: "Invalid user data"
+      } 
+    });
   }
 });
 
@@ -44,14 +54,19 @@ const loginUser = asyncHandler(async (req, res) => {
   const user = await User.findOne({ email });
   if (user && (await user.matchPassword(password))) {
     res.json({
-      _id: user._id,
-      firstName: user.firstName,
-      lastName: user.lastName,
-      email: user.email,
-      token: generateToken(user._id),
+      status: 'success', 
+      data: {
+        message: "User logined successfully",
+        token: generateToken(user._id),
+      }
     });
   } else {
-    res.status(401).json({ message: 'Invalid email or password' });
+    res.status(401).json({ 
+      status: 'fail', 
+      data: {
+        message: "Invalid email or password"
+      }
+    });
   }
 });
 

@@ -8,8 +8,10 @@ const errorHandler = (err, req, res, next) => {
   
     // Send error response
     res.status(statusCode).json({
-      success: false,
-      message,
+      status: 'fail', 
+      data: {
+        message,
+      }
     });
   };
   
