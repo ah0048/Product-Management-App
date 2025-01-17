@@ -31,13 +31,15 @@ const upload = multer({
   limits: { fileSize: 2 * 1024 * 1024 }, // 2MB limit
 });
 
-const cleanupTempFiles = (req, res, next) => {
-    if (req.file) {
-      fs.unlink(path.resolve(req.file.path), (err) => {
-        if (err) console.error('Failed to delete temp file:', err);
-      });
+// Utility function to clean up temp files
+const cleanupTempFile = (filePath) => {
+  try {
+    if (fs.existsSync(filePath)) {
+      fs.unlinkSync(filePath);
     }
-    next();
-  };
+  } catch (err) {
+    console.error('Failed to delete temp file:', err);
+  }
+};
 
-module.exports = { upload, cleanupTempFiles };
+module.exports = { upload, cleanupTempFile };
