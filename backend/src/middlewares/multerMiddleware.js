@@ -2,15 +2,22 @@ const multer = require('multer');
 const fs = require('fs');
 const path = require('path');
 
+// Create uploads directory if it doesn't exist
+const uploadsDir = 'uploads';
+if (!fs.existsSync(uploadsDir)) {
+  fs.mkdirSync(uploadsDir);
+}
+
+
 // Configure storage
 const storage = multer.diskStorage({
-  destination: (req, file, cb) => {
-    cb(null, 'uploads/'); // Temporary folder for uploads
-  },
-  filename: (req, file, cb) => {
-    cb(null, `${Date.now()}-${file.originalname}`);
-  },
-});
+    destination: (req, file, cb) => {
+      cb(null, uploadsDir); // Use the constant we defined
+    },
+    filename: (req, file, cb) => {
+      cb(null, `${Date.now()}-${file.originalname}`);
+    },
+  });
 
 // File filter for images only
 const fileFilter = (req, file, cb) => {

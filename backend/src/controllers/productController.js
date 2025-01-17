@@ -11,7 +11,10 @@ exports.createProduct = asyncHandler(async (req, res) => {
   
     try {
       // Upload image to Cloudinary
-      const result = await cloudinary.uploader.upload(req.file.path);
+      const result = await cloudinary.uploader.upload(req.file.path, 
+        {
+        folder: "Products",
+      });
       imageUrl = result.secure_url;
   
       // Create product in DB
@@ -103,13 +106,15 @@ exports.deleteProduct = asyncHandler(async (req, res) => {
         });
     }
 
+    if(product.imageUrl) {
     // delete image from Cloudinary
     const publicId = product.imageUrl.split('/').pop().split('.')[0];
     await cloudinary.uploader.destroy(publicId);
+    }
 
-    await product.remove();
+    await Product.findByIdAndDelete(id);
 
-    res.status(204).json({
+    res.status(200).json({
       status: 'success',
       data: {
         message: "Product deleted successfully",

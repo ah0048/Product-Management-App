@@ -2,8 +2,9 @@ const User = require('../models/User');
 const jwt = require('jsonwebtoken');
 const asyncHandler = require('express-async-handler');
 
-const JWT_SECRET = process.env.JWT_SECRET || 'jwt_secret';
-const JWT_EXPIRES_IN = process.env.JWT_EXPIRES_IN || '1d';
+const JWT_SECRET = process.env.JWT_SECRET;
+console.log('JWT_SECRET:', process.env.JWT_SECRET);
+const JWT_EXPIRES_IN = process.env.JWT_EXPIRES_IN;
 
 // Generate JWT
 const generateToken = (id) => {
