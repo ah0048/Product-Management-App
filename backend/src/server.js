@@ -1,7 +1,8 @@
 const express = require('express');
 const connectDatabase = require('./config/db');
 const errorHandler = require('./middlewares/errorHandler'); // Import the error handler
-const authRoutes = require('./routes/authRoutes')
+const authRoutes = require('./routes/authRoutes');
+const productRoutes = require('./routes/productRoutes');
 
 const app = express();
 require('dotenv').config();
@@ -14,6 +15,8 @@ app.use(express.json());
 
 // my routes
 app.use('/api/auth', authRoutes);
+app.use('/api/products', productRoutes);
+
 app.get('/',(req, res) => {
     res.status(200).send('api running...')
 })
