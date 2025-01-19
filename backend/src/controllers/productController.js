@@ -7,15 +7,17 @@ const { cleanupTempFile } = require('../middlewares/multerMiddleware');
 exports.createProduct = asyncHandler(async (req, res) => {
     const { name, description, price } = req.body;
   
-    let imageUrl;
+    let imageUrl = process.env.DEFAULT_PRODUCT_IMAGE;
   
     try {
+      if (req.file) {
       // Upload image to Cloudinary
       const result = await cloudinary.uploader.upload(req.file.path, 
         {
         folder: "Products",
       });
       imageUrl = result.secure_url;
+      }
   
       // Create product in DB
       const product = await Product.create({
