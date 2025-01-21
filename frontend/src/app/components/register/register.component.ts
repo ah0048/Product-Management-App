@@ -70,7 +70,11 @@ export class RegisterComponent {
         }
       },
       (error) => {
-        this.errorMessage = error.message; // Handle error
+        if (error.error && error.error.data && error.error.data.message) {
+          this.errorMessage = error.error.data.message; // Backend-provided error message
+        } else {
+          this.errorMessage = 'An unexpected error occurred. Please try again.'; // Fallback error message
+        }
       }
     );
   }
