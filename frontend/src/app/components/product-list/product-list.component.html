@@ -1,10 +1,20 @@
-<div class="product-list">
-    <div *ngFor="let product of products" class="product-card">
-      <img [src]="product.imageUrl" alt="{{ product.name }}" class="product-image" />
-      <h4>{{ product.name | uppercase }}</h4>
-      <p>{{ product.description }}</p>
-      <p>Price: {{ product.price | priceFormat }}</p>
-      <p>Created At: {{ product.createdAt | date: 'medium' }}</p>
+<!-- frontend/src/app/components/product-list/product-list.component.html -->
+<div class="container mt-4">
+    <div class="row">
+      <div *ngFor="let product of products" class="col-md-4 mb-4">
+        <div class="card">
+          <img [src]="product.imageUrl" alt="{{ product.name }}" class="card-img-top" />
+          <div class="card-body">
+            <h5 class="card-title text-uppercase">{{ product.name }}</h5>
+            <p class="card-text">{{ product.description }}</p>
+            <p class="card-text"><strong>Price:</strong> {{ product.price | priceFormat }}</p>
+            <p class="card-text"><small class="text-muted">Created At: {{ product.createdAt | date: 'medium' }}</small></p>
+            <button class="btn btn-danger" (click)="onDelete(product._id)">
+              Delete
+            </button>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
   
