@@ -1,4 +1,3 @@
-// frontend/src/app/services/product.service.ts
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
@@ -24,5 +23,14 @@ export class ProductService {
     });
 
     return this.http.delete<any>(`${this.apiUrl}/${productId}`, { headers });
+  }
+
+  addProduct(productData: FormData): Observable<any> {
+    const token = this.authService.getToken(); // Get the token from AuthService
+    const headers = new HttpHeaders({
+      Authorization: `Bearer ${token}`,
+    });
+
+    return this.http.post<any>(this.apiUrl, productData, { headers });
   }
 }
