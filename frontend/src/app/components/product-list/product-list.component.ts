@@ -64,4 +64,9 @@ export class ProductListComponent implements OnInit {
       });
     }
   }
+
+  onEdit(productId: string): void {
+    this.router.navigate([`/products/edit/${productId}`]);
+  }
+  
 }

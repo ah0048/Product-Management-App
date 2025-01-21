@@ -33,4 +33,18 @@ export class ProductService {
 
     return this.http.post<any>(this.apiUrl, productData, { headers });
   }
+
+  getProductById(productId: string): Observable<any> {
+    return this.http.get<any>(`${this.apiUrl}/${productId}`);
+  }
+  
+  updateProduct(productId: string, productData: FormData): Observable<any> {
+    const token = this.authService.getToken();
+    const headers = new HttpHeaders({
+      Authorization: `Bearer ${token}`,
+    });
+  
+    return this.http.put<any>(`${this.apiUrl}/${productId}`, productData, { headers });
+  }
+  
 }

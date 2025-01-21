@@ -14,6 +14,9 @@
                 <p class="card-text">{{ product.description }}</p>
                 <p class="card-text"><strong>Price:</strong> {{ product.price | priceFormat }}</p>
                 <p class="card-text"><small class="text-muted">Created At: {{ product.createdAt | date: 'medium' }}</small></p>
+                <button class="btn btn-primary" (click)="onEdit(product._id)">
+                    Edit
+                  </button>
                 <button class="btn btn-danger" (click)="onDelete(product._id)">
                   Delete
                 </button>
