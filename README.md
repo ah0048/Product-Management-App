@@ -153,6 +153,7 @@ frontend/
 
 ### Products
 - **GET** `/api/products` - Get all products
+- **GET** `/api/products/:id` - Get a specific product
 - **POST** `/api/products` - Add a new product (requires authentication)
 - **PUT** `/api/products/:id` - Update a product (requires authentication)
 - **DELETE** `/api/products/:id` - Delete a product (requires authentication)
