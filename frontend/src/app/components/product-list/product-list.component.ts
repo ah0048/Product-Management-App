@@ -1,13 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 import { ProductService } from '../../services/product.service';
 import { CommonModule } from '@angular/common';
+import { PriceFormatPipe } from '../../pipes/price-format.pipe';
 
 @Component({
   selector: 'app-product-list',
   standalone: true,
   templateUrl: './product-list.component.html',
   styleUrls: ['./product-list.component.css'],
-  imports: [CommonModule],
+  imports: [CommonModule, PriceFormatPipe],
 })
 export class ProductListComponent implements OnInit {
   products: any[] = [];

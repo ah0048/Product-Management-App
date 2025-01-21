@@ -1,11 +1,10 @@
 <div class="product-list">
-    <div class="product-card" *ngFor="let product of products">
+    <div *ngFor="let product of products" class="product-card">
       <img [src]="product.imageUrl" alt="{{ product.name }}" class="product-image" />
-      <div class="product-details">
-        <h3>{{ product.name }}</h3>
-        <p>{{ product.description }}</p>
-        <p><strong>Price:</strong> ${{ product.price }}</p>
-      </div>
+      <h4>{{ product.name | uppercase }}</h4>
+      <p>{{ product.description }}</p>
+      <p>Price: {{ product.price | priceFormat }}</p>
+      <p>Created At: {{ product.createdAt | date: 'medium' }}</p>
     </div>
   </div>
   
