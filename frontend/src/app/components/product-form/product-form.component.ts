@@ -80,6 +80,11 @@ export class ProductFormComponent implements OnInit {
     formData.append('description', this.productForm.get('description')?.value);
     formData.append('price', this.productForm.get('price')?.value);
 
+    const image = this.productForm.get('image')?.value;
+    if (image) {
+      formData.append('image', image);
+    }
+
     if (this.isEditMode && this.productId) {
       this.productService.updateProduct(this.productId, formData).subscribe({
         next: (response) => {
