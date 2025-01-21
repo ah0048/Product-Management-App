@@ -13,7 +13,7 @@ const generateToken = (id) => {
 
 // Register a new user
 const registerUser = asyncHandler(async (req, res) => {
-  const { firstName, lastName, email, password } = req.body;
+  const { email, password, confirmPassword } = req.body;
 
   // Check if user already exists
   const userExists = await User.findOne({ email });
@@ -26,8 +26,16 @@ const registerUser = asyncHandler(async (req, res) => {
     });
   }
 
+  if (password !== confirmPassword) {
+    return res.status(400).json({
+      status: 'fail', 
+      data: {
+        message: "password does not match"
+      } 
+    });
+  }
   // Create new user
-  const user = await User.create({ firstName, lastName, email, password });
+  const user = await User.create({ email, password });
 
   if (user) {
     res.status(201).json({

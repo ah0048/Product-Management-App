@@ -4,6 +4,7 @@ const connectDatabase = require('./config/db');
 const errorHandler = require('./middlewares/errorHandler'); // Import the error handler
 const authRoutes = require('./routes/authRoutes');
 const productRoutes = require('./routes/productRoutes');
+const cors = require('cors'); 
 
 const app = express();
 
@@ -12,6 +13,7 @@ const app = express();
 connectDatabase();
 
 // Middleware
+app.use(cors());
 app.use(express.json());
 
 // my routes
